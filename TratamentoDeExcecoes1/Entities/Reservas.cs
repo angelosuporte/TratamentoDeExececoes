@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using TratamentoDeExcecoes1.Entities.Exceptions;
 
 namespace TratamentoDeExcecoes1.Entities
 {
@@ -16,6 +15,10 @@ namespace TratamentoDeExcecoes1.Entities
 
         public Reservas(int roomNumber, DateTime checkIn, DateTime checkOut)
         {
+            if (checkOut <= checkIn) //Caso haja erro vai capturar uma exceção durante a chamada do construtor
+            {
+                throw new DominioExcecoes("O lançamento do checkOut não pode ser anterior ou igual ao checkIn!");
+            }
             RoomNumber = roomNumber;
             CheckIn = checkIn;
             CheckOut = checkOut;
@@ -27,22 +30,22 @@ namespace TratamentoDeExcecoes1.Entities
             return (int)duration.TotalDays; //Vai retornar a diferença em dias
         }
 
-        public string UpdadeDates(DateTime checkIn, DateTime checkOut)
+        public void UpdadeDates(DateTime checkIn, DateTime checkOut)
         {
             DateTime hoje = DateTime.Now;
             if (checkIn < hoje || checkOut < hoje)
             {
-                return " O check-In e o check-Out devem ser datas futuras!";
+                throw new DominioExcecoes(" O check-In e o check-Out devem ser datas futuras!");
             }
             if (checkOut <= checkIn)
             {
-                return "O lançamento do checkOut não pode ser anterior ou igual ao checkIn!";
+                throw new DominioExcecoes("O lançamento do checkOut não pode ser anterior ou igual ao checkIn!");
             }
-            //Se não houver erros na execução da lógica acima, será feito updade
+
 
             CheckIn = checkIn;
             CheckOut = checkOut;
-            return null; //<---Esse retorno garente que não houve erros
+            
         }
 
 
