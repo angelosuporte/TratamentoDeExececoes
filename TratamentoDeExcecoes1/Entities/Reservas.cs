@@ -27,10 +27,22 @@ namespace TratamentoDeExcecoes1.Entities
             return (int)duration.TotalDays; //Vai retornar a diferença em dias
         }
 
-        public void UpdadeDates(DateTime checkIn, DateTime checkOut)
+        public string UpdadeDates(DateTime checkIn, DateTime checkOut)
         {
+            DateTime hoje = DateTime.Now;
+            if (checkIn < hoje || checkOut < hoje)
+            {
+                return " O check-In e o check-Out devem ser datas futuras!";
+            }
+            if (checkOut <= checkIn)
+            {
+                return "O lançamento do checkOut não pode ser anterior ou igual ao checkIn!";
+            }
+            //Se não houver erros na execução da lógica acima, será feito updade
+
             CheckIn = checkIn;
             CheckOut = checkOut;
+            return null; //<---Esse retorno garente que não houve erros
         }
 
 
@@ -38,7 +50,7 @@ namespace TratamentoDeExcecoes1.Entities
         {
             return "Room "
                 + RoomNumber + ":"
-                + "check-in: " + CheckIn.ToString("dd/MM/yyyy")
+                + " check-in: " + CheckIn.ToString("dd/MM/yyyy")
                 + ", check-out: " 
                 + CheckOut.ToString("dd/MM/yyyy") + ", " + Duration() + " noites";
 

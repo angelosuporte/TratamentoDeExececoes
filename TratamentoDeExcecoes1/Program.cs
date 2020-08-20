@@ -32,27 +32,18 @@ namespace TratamentoDeExcecoes1
                 Console.Write("Check-out date (dd/MM/yyyy): ");
                 checkOut = DateTime.Parse(Console.ReadLine());
 
-                DateTime hoje = DateTime.Now;
-                if (checkIn < hoje || checkOut < hoje)
-                {
-                    Console.WriteLine("Erro na reserva: o check-In e o check-Out devem ser datas futuras!");
-                }
-                else if (checkOut <= checkIn)
-                {
-                    Console.WriteLine("Erro na reserva: O lançamento do checkOut não pode ser anterior ou igual ao checkIn!");
-                }
+                string error = reserva.UpdadeDates(checkIn, checkOut);
 
+                if (error != null)
+                {
+                    Console.WriteLine("Erro na reserva: " + error);
+                }
                 else
                 {
-                    reserva.UpdadeDates(checkIn, checkOut);
+
                     Console.WriteLine("Reserva: " + reserva);
                 }
             }
-           
-
-
-
-
         }
     }
 }
