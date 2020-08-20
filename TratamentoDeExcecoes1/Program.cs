@@ -37,6 +37,14 @@ namespace TratamentoDeExcecoes1
             {
                 Console.WriteLine("Erro na reserva: " + e.Message);
             }
+            catch (FormatException e)
+            {
+                Console.WriteLine("Erro no formato: " + e.Message); //neste caso vai gerar uma mensagem do próprio VS
+            }
+            catch (Exception e) 
+            {
+                Console.WriteLine("Erro inesperado: " + e.Message);
+            }
         }
     }
 }
